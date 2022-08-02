@@ -1,0 +1,88 @@
+﻿@model Code.Models.Models.AdminModels.Chapter.MDPostAddChapter
+@{
+    ViewBag.Title = "AddChapterSP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+
+<script src="/Areas/Admin/Plugin/ckeditor/ckeditor.js"></script>
+<div class="site-content" style="height: auto !important;">
+    <div class="container" style="margin-top: 50px; height: auto !important;">
+        <div class="row " style="height: auto !important;">
+            <div class="main-col col-md-12 col-sm-12">
+                <div class="c-blog__heading style-2 font-heading ">
+                    <h2 class="h4">
+                        <i class="bi bi-plus-square"></i>
+                        THÊM CHAPTER MỚI
+                    </h2>
+                </div>
+                <div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ActionLink("Trở lại", "DanhSachTruyen", new { area = "Admin" }, new { @class = "btn btn-success" });
+                        <button class="btn btn-success" type="submit"><span>Xong</span></button>
+                        <hr />
+                        <div class="row justify-content-center">
+                            <div class="col-xl-10 col-lg-12 col-md-9">
+                                <div class="card o-hidden border-0 shadow-lg my-5">
+                                    <div class="card-body p-0">
+                                        <div class="p-5">
+                                            <form class="user">
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Link ảnh đầu tiên:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.LinkAnh0, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập link ảnh vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.LinkAnh0, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Link ảnh cuối cùng:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.LinkAnh80, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập link ảnh vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.LinkAnh80, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Link ảnh nhận dạng:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.LinkAnhNhanDang, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập link ảnh vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.LinkAnhNhanDang, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Đuôi Link ảnh nhận dạng:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.DuoiLinkAnhNhanDang, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập link ảnh vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.DuoiLinkAnhNhanDang, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Số đầu:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.SoDau, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập số đầu vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.SoDau, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <p>Số cuối:</p>
+                                                    </div>
+                                                    @Html.EditorFor(model => model.SoCuoi, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập số cuối vào đây" } })
+                                                    @Html.ValidationMessageFor(model => model.SoCuoi, "", new { @class = "text-danger" })
+                                                </div>
+                                                <hr>
+                                            </form>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

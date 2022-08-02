@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Information_User";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+<style>
+    .inf-content {
+        border: 1px solid #DDDDDD;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+        margin: 2px
+    }
+
+    p {
+        margin-left: 50px
+    }
+</style>
+<div class="container bootstrap snippets bootdey">
+    <div class="panel-body inf-content">
+        <center><h2 style="margin-top:9px">THÔNG TIN TÀI KHOẢN</h2></center><br>
+        <div class="row">
+            <div class="col-md-4">
+                <center>
+                    @if ((bool)Session["GioiTinh"] == true)
+                    {
+                        <img alt="" style="width: 300px; margin: 12px " title="AVATAR" class="img-circle img-thumbnail isTooltip" src="~/Assets/Avatar/avatar7.png" data-original-title="Usuario">
+                    }
+                    else if ((bool)Session["GioiTinh"] == false)
+                    {
+                        <img alt="" style="width: 300px; margin: 12px " title="AVATAR" class="img-circle img-thumbnail isTooltip" src="~/Assets/Avatar/avatar3.png" data-original-title="Usuario">
+                    }
+                </center>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <center>
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-key"></span>
+                                                Tên đăng nhập
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        <p>   @Session["TaiKhoan"]</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-bookmark"></span>
+                                                Họ và tên đệm user
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        <p>   @Session["HoTenDem"]</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-person-fill"></span>
+                                                Tên user
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        <p>   @Session["TenUser"]</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-gender-ambiguous"></span>
+                                                Giới tính
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        @if ((bool)Session["GioiTinh"] == true)
+                                        {
+                                            <p>   Nam</p>
+                                        }
+                                        else if ((bool)Session["GioiTinh"] == false)
+                                        {
+                                            <p>   Nữ</p>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-award"></span>
+                                                Cấp quyền
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        @if ((int)Session["Cap"] == 1)
+                                        {
+                                            <p>   Admin</p>
+                                        }
+                                        else if ((int)Session["Cap"] == 2)
+                                        {
+                                            <p>   Mannager</p>
+                                        }
+                                        else if ((int)Session["Cap"] == 3)
+                                        {
+                                            <p>   Client</p>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-telephone"></span>
+                                                Số điện thoại
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        <p>   @Session["SDT"]</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>
+                                            <strong>
+                                                <span class="bi bi-calendar"></span>
+                                                Ngày sinh
+                                            </strong>
+                                        </p>
+                                    </td>
+                                    <td class="text-primary">
+                                        <p>   @Session["NgaySinh"]</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

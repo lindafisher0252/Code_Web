@@ -1,0 +1,32 @@
+﻿@{ var listNewUpdateChapter = (List<Code.Models.Models.MDGetTruyenbyTopDiemDanhGia>)ViewBag.ListNewUpdateChapter;
+    var urlWeb = @Session["URL_WEB"];}
+
+<div class="visited-comics">
+    <div class="box darkBox">
+        <h2>
+            Truyện mới cập nhập chương <a class="view-all" href="/lich-su">Xem tất cả</a>
+        </h2>
+        <ul class="list-unstyled">
+            <!--DS truyện mới cập nhập chapter-->
+            @foreach (var item in listNewUpdateChapter)
+            {
+                <li class="clearfix">
+                    <div class="t-item">
+                        <a class="thumb" title="@item.TenTruyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                            <img alt="@item.TenTruyen" src="@urlWeb@item.LinkAnhBG">
+                        </a>
+                        <h3 class="title">
+                            <a href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                @item.TenTruyen
+                            </a>
+                        </h3>
+                        <p class="chapter">
+                            <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = item.ID_Truyen, id2 = item.Chapter})">Chapter @item.Chapter <i class="fa fa-angle-double-right"></i></a>
+                        </p>
+                    </div>
+                </li>
+            }
+            <!--End DS lich su doc-->
+        </ul>
+    </div>
+</div>

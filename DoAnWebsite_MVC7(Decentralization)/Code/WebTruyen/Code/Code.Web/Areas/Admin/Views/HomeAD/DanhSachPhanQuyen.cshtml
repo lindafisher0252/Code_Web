@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "DanhSachPhanQuyen";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+    var listDS = (List<Code.Models.Models.AdminModels.Decentralization.ModelDecentralization>)ViewBag.ListDS;
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">BẢNG QUẢN LÝ PHÂN QUYỀN TÀI KHOẢN</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID tài khoản</th>
+                            <th>Cấp quyền</th>
+                            <th>Họ tên đệm</th>
+                            <th>Tên</th>
+                            <th>Giới tính</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày khởi tạo</th>
+                            <th>Truy cập lần cuối</th>
+                            <th>Phân quyền</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID tài khoản</th>
+                            <th>Cấp quyền</th>
+                            <th>Họ tên đệm</th>
+                            <th>Tên</th>
+                            <th>Giới tính</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày khởi tạo</th>
+                            <th>Truy cập lần cuối</th>
+                            <th>Phân quyền</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in listDS)
+                        {
+                            <tr>
+                                <td>@item.ID_TaiKhoan</td>
+                                <td>@item.ChucNang</td>
+                                <td>@item.HoTenDem</td>
+                                <td>@item.Ten</td>
+                                @if (item.GioiTinh == true)
+                                {
+                                    <td>Nam</td>
+                                }
+                                else
+                                {
+                                    <td>Nữ</td>
+                                }
+                                <td>@item.SoDienThoai</td>
+                                <td>@item.NgayTao</td>
+                                <td>@item.TruyCapLanCuoi</td>
+                                <td>
+                                    @if (item.ID_PhanCap == 3)
+                                    {
+                                    <a href="@Url.Action("UpdateDecentralization", "HomeAD", new { area = "Admin", id = item.ID_TaiKhoan, check=1 })" onclick="return confirm('Bạn có chắc muốn TĂNG quyền hạn cho tài khoản có ID là @item.ID_TaiKhoan?');"><i class="fas fa-solid fa-arrow-up text-blue-300"></i> Tăng quyền</a>
+                                    }
+                                    else if( item.ID_PhanCap == 2 )
+                                    {
+                                <a href="@Url.Action("UpdateDecentralization", "HomeAD", new { area = "Admin", id = item.ID_TaiKhoan, check=0 })" onclick="return confirm('Bạn có chắc muốn GIẢM quyền hạn cho tài khoản có ID là @item.ID_TaiKhoan?');"><i class="fas fa-solid fa-arrow-down text-blue-300"></i>  Giảm quyền</a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

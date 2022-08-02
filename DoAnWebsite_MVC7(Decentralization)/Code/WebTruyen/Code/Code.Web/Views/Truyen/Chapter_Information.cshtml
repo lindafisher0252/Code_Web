@@ -1,0 +1,261 @@
+﻿@model Code.Models.Models.MDBinhLuan
+@{
+    ViewBag.Title = "Chapter_Information";
+    var listBinhLuan = (PagedList<Code.Models.Models.TruyenModels.FunctionModels.BinhLuan.MDGetDSBinhLuan>)ViewBag.ListBinhLuan;
+    var listChapter = (List<Code.Models.Models.TruyenModels.ChapterModels.MDGetDSChapterClient>)ViewBag.ListChapter;
+    var listImg = (List<Code.Models.Models.AdminModels.Chapter.MDGetDSChapter>)ViewBag.ListImg;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var urlWeb = @Session["URL_WEB"];
+}
+@using PagedList;
+@using PagedList.Mvc;
+<div id="ctl00_divCenter" class="full-width col-sm-12">
+    <div class="reading">
+        <div class="container">
+            <div class="top">
+                <h1 class="txt-primary"><a href="@Url.Action("General_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"] })"> @Session["TenTruyen"] </a> <span>- Chapter @Session["Chap"]</span></h1><i>[Cập nhật lúc: @Session["Time"]]</i>
+                @*<div class="facebook-like">
+                        <span class="tip hidden">Đửng Share</span>
+                        <div data-share="true" data-show-faces="true" data-action="like" data-layout="button_count" data-href="http://www.nettruyenone.com/truyen-tranh/chau-trai-cua-hien-nhan/chap-56/839362" class="fb-like fb_iframe_widget" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=745819368841087&amp;container_width=150&amp;href=http%3A%2F%2Fwww.nettruyenone.com%2Ftruyen-tranh%2Fchau-trai-cua-hien-nhan%2Fchap-56%2F839362&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true"><span style="vertical-align: bottom; width: 150px; height: 28px;"><iframe name="f286f6ae6f046f8" width="1000px" height="1000px" data-testid="fb:like Facebook Social Plugin" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://www.facebook.com/v2.0/plugins/like.php?action=like&amp;app_id=745819368841087&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df1dd4e0f023cf2c%26domain%3Dlocalhost%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Flocalhost%253A44354%252Ff2306b163eda9e8%26relation%3Dparent.parent&amp;container_width=150&amp;href=http%3A%2F%2Fwww.nettruyenone.com%2Ftruyen-tranh%2Fchau-trai-cua-hien-nhan%2Fchap-56%2F839362&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true" style="border: none; visibility: visible; width: 150px; height: 28px;" class=""></iframe></span></div>
+                    </div>*@
+            </div>
+            <div class="reading-control">
+                <span class="chapter-id hidden" data-id="839362" data-cid="13240" data-cdn="" data-cdn2=""></span>
+
+                <div class="mrb10">
+                    <a rel="nofollow" href="#" class="alertError btn btn-warning"><i class="bi bi-exclamation-triangle"></i> Báo lỗi</a>
+                </div>
+                <div class="alert alert-info mrb10 hidden-xs hidden-sm">
+                    <i class="bi bi-bell"></i> <em>Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển chapter</em>
+                </div>
+                <div class="chapter-nav" id="chapterNav" style="z-index: 1000;">
+                    <a class="home" href="@Url.Action("Index", "Home", new { area = "" })" title="Trang chủ"><i class="bi bi-house"></i></a>
+                    @if ((int)Session["Chap"] > 1)
+                    {
+                        <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = (int)Session["Chap"] - 1 })" class="prev a_prev"><i class="bi bi-caret-left-square"></i></a>
+                    }
+                    else if ((int)Session["Chap"] <= 1)
+                    {
+                        <a href="#" class="prev a_prev disabled"><i class="bi bi-caret-left-square "></i></a>
+                    }
+
+                    @*<select name="22" id="ctl00_mainContent_ddlSelectChapter" class="select-chapter">
+                        @foreach (var item_1 in listChapter)
+                        {
+                            if (item_1.TenChuong == (int)Session["Chap"])
+                            {
+                                <option selected="selected" value="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = item_1.TenChuong })">Chapter @item_1.TenChuong</option>
+                            }
+                            else
+                            {
+                                <option value="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = item_1.TenChuong })">Chapter @item_1.TenChuong</option>
+                            }
+                        }
+                    </select>*@
+                    <select name="forma" class="select-chapter" onchange="location = this.value;">
+                        @foreach (var item_1 in listChapter)
+                        {
+                            if (item_1.TenChuong == (int)Session["Chap"])
+                            {
+                                <option selected="selected" value="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = item_1.TenChuong })">Chapter @item_1.TenChuong</option>
+                            }
+                            else
+                            {
+                                <option value="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = item_1.TenChuong })">Chapter @item_1.TenChuong</option>
+                            }
+                        }
+                    </select>
+                    @if ((int)Session["Chap"] < (int)Session["MaxChapter"])
+                    {
+                        <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = (int)Session["Chap"]+1})" class="prev a_prev"><i class="bi bi-caret-right-square"></i></a>
+                    }
+                    else if ((int)Session["Chap"] >= (int)Session["MaxChapter"])
+                    {
+                        <a href="#" class="next a_next disabled"><i class="bi bi-caret-right-square"></i></a>
+                    }
+                    @if (Session["Status_Flow"] is true)
+                    {
+                        <a class=" btn btn-success" href="@Url.Action("Follow", "Truyen", new { area = "", id = (int)Session["id_Truyen"], chapter = (int)Session["Chap"] })" onclick="return confirm('Bạn có chắc muốn hủy theo dõi ?')"><i class="bi bi-check-circle-fill"></i><span>Hủy theo dõi</span></a>
+                    }
+                    @if (Session["Status_Flow"] is false)
+                    {
+                        <a class=" btn btn-success" href="@Url.Action("Follow", "Truyen", new { area = "", id = (int)Session["id_Truyen"], chapter = (int)Session["Chap"] })"><i class="bi bi-plus-circle-fill"></i><span>Theo dõi</span></a>
+                    }
+                    @if (Session["Status_Flow"] is null)
+                    {
+                        <a class=" btn btn-success" href="@Url.Action("Follow", "Truyen", new { area = "", id =(int)Session["id_Truyen"], chapter = (int)Session["Chap"] })" onclick="return confirm('Bạn cần đăng nhập mới có thể sử dụng chức năng theo dõi, bạn muốn đăng nhập ?')"><i class="bi bi-plus-circle-fill"></i><span>Theo dõi</span></a>
+
+                    }
+                </div><div></div>
+            </div>
+        </div>
+
+        <script>var journalOptions = {}; journalOptions.comicId = 13240; journalOptions.chapterId = 839362; journalOptions.pageSize = 15; var commentOpts = {};</script>
+        <div class="reading-detail box_doc">
+            @foreach (var item in listImg)
+            {
+                <div class="page-chapter">
+                    <img alt="@item.TenTruyen" data-index="@item.TenChuong" src="@urlWeb@item.LinkAnh" />
+                </div>
+            }
+
+        </div>
+        <div class="container">
+
+            <div class="top bottom">
+                <div class="chapter-nav-bottom text-center" id="chapterNavBottom">
+                    @if ((int)Session["Chap"] > 1)
+                    {
+                        <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = (int)Session["Chap"]-1})" class="btn btn-danger prev "><em class="bi bi-caret-left-square"></em> Chap trước</a>
+                    }
+                    else if ((int)Session["Chap"] <= 1)
+                    {
+                        <a href="#" class="btn btn-danger prev disabled"><em class="bi bi-caret-left-square"></em> Chap trước</a>
+                    }
+                    @if ((int)Session["Chap"] < (int)Session["MaxChapter"])
+                    {
+                        <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"], id2 = (int)Session["Chap"]+1})" class="btn btn-danger next ">Chap sau <em class="bi bi-caret-right-square"></em></a>
+                    }
+                    else if ((int)Session["Chap"] >= (int)Session["MaxChapter"])
+                    {
+                        <a href="#" class="btn btn-danger next disabled">Chap sau <em class="bi bi-caret-right-square"></em></a>
+                    }
+
+                </div>
+                <h1 class="txt-primary"><a href="@Url.Action("General_Information", "Truyen", new { area = "", id = (int)Session["id_Truyen"] })"> @Session["TenTruyen"] </a> <span>- Chapter @Session["Chap"]</span></h1><i>[Cập nhật lúc: @Session["Time"]]</i>
+                <div class="social hidden">
+                </div>
+            </div>
+            <script src="//st.nettruyenone.com/Data/Sites/1/skins/comic/js/chapterloader.min.js?v=1.1.2.5" type="text/javascript"></script>
+
+            <!--Noi dung bình luận-->
+            <div class="tab-content">
+                <div id="nt_comments" class="tab-pane fade in active">
+                    <div class="commentpanel">
+                        <div class="journalTools">
+                            <div class="journalEditor">
+                                <div class="journalPlaceholder">Mời bạn thảo luận, vui lòng không spam hoặc share link kiếm tiền, sex,... để tránh bị khóa tài khoản</div>
+                                <br />
+                                @if (Session["Login"] == null || Session["Login"] == "")
+                                {
+                                    <div class="journalPlaceholder">Bạn phải đăng nhập mới có thể dùng chức năng bình luận.</div>
+                                    <a class="btnShare" href="@Url.Action("Login", "Home", new { area = "" })"><i class="bi bi-plus-circle-fill"></i><span>Đăng nhập</span></a>
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("PostComment", "Truyen", new { area = "" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <center>
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        </center>
+                                        <div class="form-group">
+                                            @Html.TextAreaFor(model => model.NoiDung, new { @class = "journalPlaceholder" })
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btnShare">Gửi</button>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var item_2 in listBinhLuan)
+                    {
+                        if (item_2.ID_BinhLuan_Cha is null)
+                        {
+
+                            <div class="journalItems">
+                                <div class="journalrow">
+                                    <div class="author">
+                                        <img alt="Author" src="https://i.giphy.com/media/KztT2c4u8mYYUiMKdJ/giphy.webp" class="lazy" data-original="https://i.giphy.com/media/KztT2c4u8mYYUiMKdJ/giphy.webp" style="display: inline;">
+                                    </div>
+                                    <div class="journalitem">
+                                        <div class="journalsummary">
+                                            <i class="fa fa-angle-left">
+                                            </i>
+                                            <span class="authorname">@item_2.HoTenDem @item_2.Ten</span>
+                                            <span class="member">@item_2.ChucNang</span>
+                                            <i class="fa fa-clock-o">
+                                            </i> @item_2.NgayBinhLuan
+                                            <span class="cmchapter">Chapter @item_2.TenChuong</span>
+                                            @if (Session["Login"] != null)
+                                            {
+                                                if ((int)Session["Cap"] == 1 || (int)Session["Cap"] == 2 || (int)Session["IdUser"] == item_2.ID_TaiKhoan)
+                                                {
+                                                    <a class="cmchapter" href="@Url.Action("DeleteBinhLuan", "Truyen", new { area = "", id = item_2.ID_BinhLuan,id1=0})"> Xóa bình luận</a>
+                                                }
+                                            }
+
+                                            <div class="summary">
+                                                @item_2.NoiDung
+                                                @*Noi dung*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="jcmt" id="jcmt-17086970">
+                                        <li class="cmtbtn journalPlaceholder" style="display: list-item;">
+                                            <div class="journalPlaceholder">
+                                                @using (Html.BeginForm("PostComment", "Truyen", new { area = "" }))
+                                                {
+                                                    <input id="ID_BinhLuan_Cha" name="ID_BinhLuan_Cha" type="hidden" value="@item_2.ID_BinhLuan " />
+                                                    @Html.AntiForgeryToken()
+                                                    <center>
+                                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    </center>
+                                                    <div class="form-group">
+                                                        @Html.TextAreaFor(model => model.NoiDung, new { style = "color:	#666666;" })
+                                                        <button type="submit" class="cmreply">Trả lời</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </li>
+                                        @foreach (var item_2Sp in listBinhLuan)
+                                        {
+                                            if (item_2.ID_BinhLuan == item_2Sp.ID_BinhLuan_Cha)
+                                            {
+                                                <li id="cmt-17088165">
+                                                    <img alt="Author" src="https://1.bp.blogspot.com/-VV_owgD1P6U/X5WbMQf1GCI/AAAAAAAAACk/6hxHl0l552k0h81tjspl1i-j6zgjVg8oQCLcBGAsYHQ/s0/tenor.gif" class="lazy" data-original="https://1.bp.blogspot.com/-VV_owgD1P6U/X5WbMQf1GCI/AAAAAAAAACk/6hxHl0l552k0h81tjspl1i-j6zgjVg8oQCLcBGAsYHQ/s0/tenor.gif" style="display: block;">
+                                                    <div class="jsummary">
+                                                        <i class="fa fa-angle-up">
+                                                        </i>
+                                                        <span class="authorname">@item_2Sp.HoTenDem @item_2Sp.Ten</span>
+                                                        <span class="member">@item_2Sp.ChucNang</span>
+                                                        <i class="fa fa-clock-o">
+                                                        </i> @item_2.NgayBinhLuan
+                                                        <span class="cmchapter">Chapter @item_2.TenChuong</span>
+                                                        @if (Session["Login"] != null)
+                                                        {
+                                                            if ((int)Session["Cap"] == 1 || (int)Session["Cap"] == 2 || (int)Session["IdUser"] == item_2Sp.ID_TaiKhoan)
+                                                            {
+                                                                <a class="cmchapter" href="@Url.Action("DeleteBinhLuan", "Truyen", new { area = "", id = item_2Sp.ID_BinhLuan, id1 = 1 })"> Xóa bình luận</a>
+                                                            }
+                                                        }
+                                                        <div class="summary"> @item_2Sp.NoiDung</div>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    }
+                    <div id="ctl00_mainContent_ctl00_divPager" class="pagination-outter">
+                        <ul class="pagination">
+                            <div>
+                                @Html.PagedListPager(listBinhLuan, page => Url.Action("General_Information", "Truyen", new { area = "", page = page }))
+                            </div>
+                            <div>
+                                Page @(listBinhLuan.PageCount < listBinhLuan.PageNumber ? 1 : listBinhLuan.PageNumber) of @listBinhLuan.PageCount
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!--End noi dung bình luận-->
+        </div>
+    </div>
+</div>

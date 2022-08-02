@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "ChapterDetails";
+    var listChapter = (List<Code.Models.Models.AdminModels.Chapter.MDGetDSChapter>)ViewBag.ListChapter;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+<div class="container-fluid">
+    <a class="btn btn-success" href="@Url.Action("AddChapter", "HomeAD", new { area = "Admin", id = (int)Session["ID_Truyen_AD_for_Chapter"] })"><i class="bi bi-plus-circle-fill"></i><span>Thêm Chương mới</span></a>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">BẢNG QUẢN LÝ DANH SÁCH CHAPTER CỦA BỘ TRUYỆN @Session["Ten_Truyen"]</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Chương</th>
+                            <th>Ngày cập nhập</th>
+                            <th>Số hình ảnh</th>
+                            <th>Chỉnh sửa</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Chương</th>
+                            <th>Ngày cập nhập</th>
+                            <th>Số hình ảnh</th>
+                            <th>Chỉnh sửa</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in listChapter)
+                        {
+                            <tr>
+                                <td>@item.TenChuong</td>
+                                <td>@item.NgayCapNhap</td>
+                                <td>@item.Sl_Images</td>
+                                <td>
+                                    @Html.ActionLink("Edit Chapter", "EditChapter", new { area = "Admin", id = item.TenChuong }) |
+                                    <a href="@Url.Action("DeleteChapter", "HomeAD", new { area = "Admin", id = item.TenChuong })" onclick="return confirm('Bạn có chắc muốn xóa chapter '+@item.TenChuong+' của truyện @Session["Ten_Truyen"] ?');">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <a class="btn btn-success" href="@Url.Action("AddChapterSP", "HomeAD", new { area = "Admin", id = (int)Session["ID_Truyen_AD_for_Chapter"] })"><i class="bi bi-plus-circle-fill"></i><span>Thêm Chương mới (Tool)</span></a>
+            </div>
+        </div>
+    </div>
+</div>

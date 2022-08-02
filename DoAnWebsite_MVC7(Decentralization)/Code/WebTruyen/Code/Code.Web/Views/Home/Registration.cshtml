@@ -1,0 +1,102 @@
+﻿@model Code.Models.Models.MDRegistration
+
+@{
+    ViewBag.Title = "Registration";
+}
+<link href="~/Assets/css/Login.css" rel="stylesheet" />
+<div class="site-content" style="height: auto !important;">
+    <div class="container" style="margin-top: 50px; height: auto !important;">
+        <div class="row " style="height: auto !important;">
+            <div class="main-col col-md-12 col-sm-12">
+                <div class="c-blog__heading style-2 font-heading ">
+                    <h2 class="h4">
+                        <i class="bi bi-person-circle"></i>
+                        Đăng ký
+                    </h2>
+                </div>
+                <hr />
+                <div>
+                    <div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                <div class="card-body p-0">
+                                    <!-- Nested Row within Card Body -->
+                                    <div class="p-5">
+                                        <br />
+                                        <div>
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        </div>
+                                        <form class="user">
+                                            <div class="text-center">
+                                                <h3 class="text-gray-900 mb-4">Tạo tài khoản!</h3>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập tên đăng nhập." } })
+                                                    @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập mật khẩu.", @type = "password" } })
+                                                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.RadioButtonFor(model => model.GioiTinh, true, new { @checked = true, onclick = "return confirm('Bạn có chắc muốn thay đổi giới tính ?');" })
+                                                @Html.Label("Nam", new { @class = "text-gray-800" })
+                                                @Html.RadioButtonFor(model => model.GioiTinh, false, new {onclick="return confirm('Bạn có chắc muốn thay đổi giới tính ?');" })
+                                                @Html.Label("Nữ", new { @class = "text-gray-800" })
+                                                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    @Html.EditorFor(model => model.HoTenDem, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập họ tên đệm." } })
+                                                    @Html.ValidationMessageFor(model => model.HoTenDem, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Nhập tên người dùng." } })
+                                                    @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @type = "number", @class = "form-control form-control-user", @placeholder = "Nhập số điện thoại." } })
+                                                    @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @type = "date", @class = "form-control form-control-user" } })
+                                                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">Tạo tài khoản</button>
+                                            </div>
+                                            <hr>
+                                            <a href="#!" class="btn btn-google btn-user btn-block">
+                                                <i class="bi bi-google"></i> Đăng nhập bằng google
+                                            </a>
+                                            <a href="#!" class="btn btn-facebook btn-user btn-block">
+                                                <i class="bi bi-facebook"></i> Đăng nhập bằng facebook
+                                            </a>
+                                        </form>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="#!">Quyên mật khẩu?</a>
+                                            <p class="textLuuY text-gray-800">Chức năng chưa hỗ trợ</p>
+                                        </div>
+                                        <div class="text-center">
+                                            @Html.ActionLink(" Bạn đã có tài khoản? Quay lại trang đăng nhập?", "Login", "Home", new { @class = "small" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

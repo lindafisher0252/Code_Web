@@ -1,0 +1,47 @@
+﻿@{ var listHot = (List<Code.Models.Models.MDTruyenHot>)ViewBag.ListHot;
+    var urlWeb = @Session["URL_WEB"];
+    }
+<div class="comic-wrap Module Module-168">
+    <div class="ModuleContent">
+        <div class="box-tab box darkBox">
+            <ul class="tab-nav clearfix">
+                <li>
+                    <a rel="nofollow" title="BXH truyện tranh theo tháng" class="active" href="#">Top Truyện</a>
+                </li>
+            </ul>
+            <div class="tab-pane">
+                <div id="topMonth">
+                    <ul class="list-unstyled">
+                        <!--DS top truyen-->
+                        @foreach (var item in listHot)
+                        {
+                            <li class="clearfix">
+                                @*<span class="txt-rank fn-order pos1">@item.ID_Truyen</span>*@
+                                <div class="t-item">
+                                    <a class="thumb" title="Truyện tranh @item.TenTruyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                        <img class="lazy" src="@urlWeb@item.LinkAnhBG" alt="@item.TenTruyen" style="display: inline;">
+                                    </a>
+                                    <h3 class="title">
+                                        <a href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">@item.TenTruyen</a>
+                                    </h3>
+                                    <p class="chapter top">
+                                        <span class="view pull-right">
+                                            @if (item.SoLuongTruyCap is null)
+                                            {<i class="bi bi-eye-fill"> 0 &ensp;</i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-eye-fill"> @item.SoLuongTruyCap &ensp;</i>
+                                            }
+                                        </span>
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                        <!--End DS top truyen-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

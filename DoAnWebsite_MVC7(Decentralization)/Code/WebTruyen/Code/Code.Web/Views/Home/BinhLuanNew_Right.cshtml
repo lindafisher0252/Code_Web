@@ -1,0 +1,27 @@
+﻿@{ var listBinhLuanNew = (List<Code.Models.Models.TruyenModels.FunctionModels.BinhLuan.MDGetDSBinhLuan>)ViewBag.BinhLuanNew;}
+<div class="new-comments Module Module-180">
+    <div class="ModuleContent">
+        <div class="box darkBox">
+            <h2>Bình luận mới</h2>
+            <div class="scroll-y">
+                <ul class="list-unstyled">
+                    Binh luan
+                    @foreach (var item in listBinhLuanNew)
+                    {
+                        <li>
+                            <h3 class="title">
+                                <a href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">@item.TenTruyen</a>
+                                <a class="cmchapter-link" href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = item.ID_Truyen, id2 = item.TenChuong})"><span class="cmchapter">Chapter @item.TenChuong</span></a>
+                            </h3><a class="thumb" title="@item.TenTruyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                <img alt="Author" class="lazy" src="https://4.bp.blogspot.com/-Ln-R7oz6Usw/XkSY0EalcTI/AAAAAAAM2Fw/Cl4k_RXRTMUe7CEuP4yFRPxiXbb5IYRJgCLcBGAsYHQ/s1600/AS0006375_23.gif" data-original="https://4.bp.blogspot.com/-Ln-R7oz6Usw/XkSY0EalcTI/AAAAAAAM2Fw/Cl4k_RXRTMUe7CEuP4yFRPxiXbb5IYRJgCLcBGAsYHQ/s1600/AS0006375_23.gif" style="display: inline;">
+                            </a>
+                                 <span class="authorname">@item.HoTenDem @item.Ten</span><abbr title="@item.NgayBinhLuan">
+                                <i class="bi bi-alarm"></i> @item.NgayBinhLuan
+                            </abbr><p>@item.NoiDung</p>
+                        </li>
+                    }
+                    </ul>
+            </div>
+        </div>
+    </div>
+</div>

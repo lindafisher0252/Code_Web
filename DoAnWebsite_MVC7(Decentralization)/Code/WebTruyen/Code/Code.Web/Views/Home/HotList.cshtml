@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "HotList";
+    var listAllHot = (PagedList<Code.Models.Models.MDTruyenHot>)ViewBag.ListAllHot;
+    var ListLBL = (List<Code.Models.Models.MDDanhSachBoTruyenLuotBinhLuan>)ViewBag.ListLBL;
+    var ListDiemDG = (List<Code.Models.Models.MDDanhSachBoTruyenDiemDanhGia>)ViewBag.ListDiemDG;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var urlWeb = @Session["URL_WEB"];
+}
+@using PagedList;
+@using PagedList.Mvc;
+<div class="container">
+    @*Slide*@
+    @{Html.RenderAction("Slide", "Home", new { area = "" });}
+    @*End slide*@
+    <div class="row">
+        <!--Noi dung trái-->
+        <div id="" class="center-side col-md-8">
+            <div class="Module Module-163">
+                <div class="ModuleContent">
+                    <div class="items">
+                        <h1 class="page-title">Danh sách truyện <i class="bi bi-arrow-repeat"></i></h1>
+                        <div class="row">
+                            @foreach (var item in listAllHot)
+                            {
+                                <div class="item">
+                                    <figure class="clearfix">
+                                        <div class="image">
+                                            <a title="Truyện tranh @item.TenTruyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                                <img src="@urlWeb@item.LinkAnhBG" class="lazy" alt="Truyện tranh @item.TenTruyen">
+                                            </a>
+                                            <div class="view clearfix">
+                                                <span class="pull-left">
+                                                    @if (item.SoLuongTruyCap is null)
+                                                    {<i class="bi bi-eye-fill"> 0 &ensp;</i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="bi bi-eye-fill"> @item.SoLuongTruyCap &ensp;</i>
+                                                    }
+                                                    @foreach (var itembl in ListLBL)
+                                                    {
+                                                        if (itembl.ID_Truyen == item.ID_Truyen)
+                                                        {
+                                                            <i class="bi bi-chat-dots"> @itembl.LuotBinhLuan &ensp;</i>
+                                                        }
+                                                    }
+                                                    @foreach (var itemdg in ListDiemDG)
+                                                    {
+                                                        if (itemdg.ID_Truyen == item.ID_Truyen)
+                                                        {
+                                                            <i class="bi bi-hand-thumbs-up"> @itemdg.DiemTB &ensp;</i>
+                                                        }
+                                                    }
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <figcaption>
+                                            <h3>
+                                                <a class="jtip" data-jtip="#@item.ID_Truyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">@item.TenTruyen</a>
+                                            </h3>
+                                            <ul>
+                                                <li class="chapter clearfix"><a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = item.ID_Truyen, id2 = item.Chapter})" title="?">Chapter @item.Chapter</a><i class="time">@item.NgayCapNhapChuongMoi.Value.ToString("dd/M/yyyy")</i></li>
+                                            </ul>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="box_tootip" style="display:none;" id="@item.ID_Truyen">
+                                        <div class="box_li">
+                                            <div class="title">@item.TenTruyen</div>
+                                            <div class="clearfix">
+                                                <div class="box_img">
+                                                    <a title="@item.TenTruyen" href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                                        <img class="img_a" src="@urlWeb@item.LinkAnhBG" alt="@item.TenTruyen">
+                                                    </a>
+                                                </div>
+                                                <div class="message_main">
+                                                    <p><label>Tên khác:</label>@item.TenTruyen</p>
+                                                    <p><label>Thể loại:</label>@item.TenLoai</p>
+                                                    <p><label>Tác giả:</label>@item.TacGia</p>
+                                                    <p><label>Tình trạng:</label>Đang tiến hành</p>
+                                                    <p><label>Lượt xem:</label>@item.SoLuongTruyCap</p>
+                                                    <p><label>Ngày khởi tạo:</label>@item.NgayDang.ToString("dd/M/yyyy")</p>
+                                                </div>
+                                            </div>
+                                            <div class="box_text">
+                                                @Html.Raw(item.MoTa)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="ctl00_mainContent_ctl00_divPager" class="pagination-outter">
+                        <ul class="pagination">
+                            <div>
+                                @Html.PagedListPager(listAllHot, page => Url.Action("Index", new { page = page }))
+                            </div>
+                            <div>
+                                Page @(listAllHot.PageCount < listAllHot.PageNumber ? 1 : listAllHot.PageNumber) of @listAllHot.PageCount
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Noi dung trái-->
+        <!--Noi dung phai-->
+        <div id="" class="right-side col-md-4 cmszone">
+            @*NewUpdate_Right*@
+            @{Html.RenderAction("NewUpdate_Right", "Home", new { area = "" });}
+            @*End NewUpdate_Right*@
+            @*Hot_right*@
+            @{Html.RenderAction("Hot_Right", "Home", new { area = "" });}
+            @*End Hot_right*@
+            @*Binh luan*@
+            @{Html.RenderAction("BinhLuanNew_Right", "Home", new { area = "" });}
+            @*End Binh luan*@
+        </div>
+        <!--End Noi dung phai-->
+    </div>
+</div>

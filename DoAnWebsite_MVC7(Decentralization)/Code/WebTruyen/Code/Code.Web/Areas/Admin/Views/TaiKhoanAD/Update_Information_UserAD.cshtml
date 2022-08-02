@@ -1,0 +1,73 @@
+﻿@model Code.Data.ThongTinTK
+
+@{
+    ViewBag.Title = "Update_Information_UserAD";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAD.cshtml";
+}
+<div class="container bootstrap snippets bootdey">
+    <div class="panel-body inf-content">
+        <center><h2 style="margin-top:9px">SỬA THÔNG TIN TÀI KHOẢN</h2></center><br>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID_ThongTin)
+
+                <div class="form-group">
+                    <p class="control-label col-md-2">Họ tên đệm</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.HoTenDem, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.HoTenDem, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p class="control-label col-md-2">Tên người dùng</p>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p class="control-label col-md-2">Giới tính</p>
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.GioiTinh, true, new { @checked = true, onclick = "return confirm('Bạn có chắc muốn thay đổi giới tính ?');" })
+                        @Html.Label("Nam", new { @class = "text-gray-800" })
+                        @Html.RadioButtonFor(model => model.GioiTinh, false, new { onclick = "return confirm('Bạn có chắc muốn thay đổi giới tính ?');" })
+                        @Html.Label("Nữ", new { @class = "text-gray-800" })
+                        @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        Số điện thoại
+                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @type = "number", @class = "form-control form-control-user", @placeholder = "Nhập số điện thoại." } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-6">
+                        Ngày sinh: @Session["NgaySinh"] (Thay đổi chọn ngày bên dưới)
+                        @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @type = "date", @class = "form-control form-control-user" } })
+                        @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input style="color:black" type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            <a class="nav-link" href="@Url.Action("Login", "Home", new { area = "" })">
+                <i class="bi bi-arrow-90deg-left"></i>
+                <span>Trở lại</span>
+            </a>
+        </div>
+
+    </div>
+</div>

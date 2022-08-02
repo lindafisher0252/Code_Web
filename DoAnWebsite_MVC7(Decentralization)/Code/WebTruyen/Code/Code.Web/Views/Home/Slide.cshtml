@@ -1,0 +1,37 @@
+﻿@{var listNew = (List<Code.Models.Models.MDTruyenMoi>)ViewBag.ListNew;
+    var urlWeb = @Session["URL_WEB"];}
+<div id="ctl00_divAlt1" @*class="altcontent1 cmszone"*@>
+    <div @*class='top-comics Module Module-183'*@>
+        <div @*class='ModuleContent'*@>
+            <h2 class="page-title">Truyện mới <i class="bi bi-cloud-arrow-up-fill"></i></h2>
+            <div class="items-slide">
+                <div class="owl-carousel clearfix">
+                    @foreach (var item in listNew)
+                    {
+                        <div class="item">
+                            <a href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })">
+                                <img class="lazyOwl" src="@urlWeb@item.LinkAnhBG" alt="@item.TenTruyen">
+                            </a>
+                            <div class="slide-caption">
+                                <h3>
+                                    <a href="@Url.Action("General_Information", "Truyen", new { area = "", id = item.ID_Truyen })" title="@item.TenTruyen">@item.TenTruyen</a>
+                                </h3>
+                                <a href="@Url.Action("Chapter_Information", "Truyen", new { area = "", id = item.ID_Truyen, id2 = item.chapter})" title="Chapter">Chapter @item.chapter</a>
+                                <span class="time">
+                                    <i class="bi bi-alarm"></i>
+                                    @item.NgayDang
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <a href="#" class="prev" aria-label="Trước">
+                </a>
+                <a href="#" class="next" aria-label="Sau">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
