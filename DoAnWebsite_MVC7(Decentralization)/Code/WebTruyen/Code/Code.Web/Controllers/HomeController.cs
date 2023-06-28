@@ -23,7 +23,7 @@ namespace Code.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index(int? page = 1, int pageSize = 20)
         {
-            Session["URL_WEB"] = "https://img.baotangtruyenhot.com/";
+            Session["URL_WEB"] = "https://img.xemtr.com/";
             //Lấy dữ liệu ds truyện và thông tin truyện tương ứng trong database
             Session.Remove("ID_Truyen_AD_for_Chapter");
             var IplGetDanhSachTruyenModel = new GetDanhSachTruyenModel();
